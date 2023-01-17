@@ -8,4 +8,6 @@ import id.yozi.operatortransfer.entity.Nasabah;
 @Repository
 public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
 
+    Nasabah deleteRekeningById(Long id);
+
 }

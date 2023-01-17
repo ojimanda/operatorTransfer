@@ -19,6 +19,10 @@ public class Rekening implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String noRekening;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "provider_id", nullable = false)
+    private Provider provider;
     private double saldo;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

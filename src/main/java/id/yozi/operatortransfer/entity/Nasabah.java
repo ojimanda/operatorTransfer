@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class Nasabah implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fullName;
-    private Date dob;
+    @Column(unique = true)
     private Integer noIdentity;
     private String tipeIdentity;
     private String email;

@@ -15,7 +15,7 @@ public interface NasabahService {
 
     public Nasabah addNasabah(Nasabah nasabah);
 
-    public Nasabah updateNasabah(Nasabah nasabah);
+    public Nasabah updateNasabah(Long id, Nasabah nasabah);
 
     public void deleteNasabah(Long id);
 }

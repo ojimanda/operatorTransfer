@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Rekening Detail</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container text-center d-flex justify-content-between">
+            <a class="navbar-brand h1" href="/customer">CUSTOMER SERVICE</a>
+            <button class="btn btn-danger"><a style="text-decoration: none;" class="text-white" th:href="@{/logout}">Log
+                    Out</a></button>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="w-100 d-flex flex-column align-items-center">
+            <form class="mb-3 d-flex flex-column" style="width: 40%;">
+                <table class="table tablecs">
+                    <tr style="border: white;">
+                        <td>
+                            Nama
+                        </td>
+                        <td>
+                            <input type="text" class="w-100 border border-1 rounded p-2"
+                                placeholder="Masukkan nama lengkap" required />
+                        </td>
+                    </tr>
+                    <tr style="border: white;">
+                        <td>No. Identitas</td>
+                        <td>
+                            <input type="number" class="w-100 border border-1 rounded p-2"
+                                placeholder="Masukkan nomor identitas" required />
+                        </td>
+                    </tr>
+                    <tr style="border: white;">
+                        <td>Tipe Identitas</td>
+                        <td>
+                            <select class="form-select w-100 border border-1 rounded p-2"
+                                aria-label="Default select example" required>
+                                <option selected></option>
+                                <option value="ktp">KTP</option>
+                                <option value="sim">SIM</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr style="border: white;">
+                        <td>Email</td>
+                        <td>
+                            <input type="email" class="w-100 border border-1 rounded p-2" placeholder="Masukkan email"
+                                required />
+                        </td>
+                    </tr>
+                    <tr style="border: white;">
+                        <td>Kontak</td>
+                        <td>
+                            <input type="text" class="w-100 border border-1 rounded p-2" placeholder="Masukkan kontak"
+                                required />
+                        </td>
+                    </tr>
+                    <tr style="border: white;">
+                        <td></td>
+                        <td colspan="2" class="d-flex justify-content-between">
+                            <div></div>
+                            <button type="submit" class="btn btn-success">Simpan</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+
+            <div style="overflow-y: scroll; overflow-x: auto;" class="w-100 mt-5">
+                <table class="text-center w-100">
+                    <thead>
+                        <th>Nama</th>
+                        <th>No. Identitas</th>
+                        <th>Tipe Identitas</th>
+                        <th>Email</th>
+                        <th>Kontak</th>
+                        <!-- <th>No. Rekening</th> -->
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        <tr th:each="nsbh : ${nasabahs}">
+                            <td th:text="${nsbh.fullName}"></td>
+                            <td th:text="${nsbh.noIdentity}"></td>
+                            <td th:text="${nsbh.tipeIdentity}"></td>
+                            <td th:text="${nsbh.email}"></td>
+                            <td th:text="${nsbh.contact}"></td>
+                            <!-- <td th:text="${nsbh.rekening}">No. Rekening</td> -->
+                            <td class="d-flex justify-content-center mb-1">
+                                <button class="btn btn-primary"><a style="text-decoration: none;" class="text-white"
+                                        th:href="@{/customer/edit(id=${nsbh.id})}">Edit</a></button>
+                                <button class="btn btn-danger mx-3"><a style="text-decoration: none;" class="text-white"
+                                        th:href="@{/customer/delete(id=${nsbh.id})}">Delete</a></button>
+                                <button class="btn btn-info"><a style="text-decoration: none;" class="text-white"
+                                        th:href="@{/customer/rekening(id=${nsbh.id})}">Details</a></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -36,10 +36,7 @@ public class UserController {
     }
 
     
-    @GetMapping("/customer")
-    public String homeCustomer() {
-        return "customerService/home";
-    }
+
 
     @GetMapping("/operator")
     public String homeOperator() {

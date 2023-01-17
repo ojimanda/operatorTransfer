@@ -28,4 +28,7 @@ public class Provider {
     @OneToMany(mappedBy = "provider", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Amount> amounts;
 
+    @OneToMany(mappedBy = "provider", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Rekening> rekening;
+
 }
