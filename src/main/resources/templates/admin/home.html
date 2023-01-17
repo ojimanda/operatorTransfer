@@ -17,11 +17,16 @@
 
       <div class="container mt-5">
         <div class="w-100 d-flex flex-column align-items-center">
-            <div class="mb-3 d-flex flex-column w-50">
+            <form th:if="${provider.name == null}" class="mb-3 d-flex flex-column w-50" method="post" th:action="@{/admin}" th:object="${provider}">
                 <label for="bankProvider" class="h4 form-label">Bank Provider</label>
-                <input type="text" class="form-control" id="bankProvider" placeholder="Bank Maybank Indonesia">
+                <input type="text" class="form-control" th:field="*{name}" id="bankProvider" placeholder="Bank Maybank Indonesia">
                 <input type="submit" value="Save" class="btn btn-success my-3 align-self-center w-25" />
-            </div>
+            </form>
+            <form th:unless="${provider.name == null}" class="mb-3 d-flex flex-column w-50" method="post" th:action="@{/admin/edit(id=${provider.id})}" th:object="${provider}">
+                <label for="bankProvider" class="h4 form-label">Bank Provider</label>
+                <input type="text" class="form-control" th:field="*{name}" id="bankProvider" placeholder="Bank Maybank Indonesia">
+                <input type="submit" value="Update" class="btn btn-success my-3 align-self-center w-25" />
+            </form>
 
             <div style="overflow-y: scroll; overflow-x: auto;" class="w-50 mt-5">
                 <table class="text-center w-100">
@@ -35,8 +40,8 @@
                         <td th:text="${prov.kode}"></td>
                         <td th:text="${prov.name}"></td>
                         <td class="d-flex justify-content-center">
-                            <button class="btn btn-primary me-2"><a style="text-decoration: none;" class="text-white" th:href="@{/admin(id=${id})}">Edit</a></button>
-                            <button class="btn btn-danger"><a style="text-decoration: none;" class="text-white" th:href="@{/admin/delete(id=${id})}">Delete</a></button>
+                            <button class="btn btn-primary me-2"><a style="text-decoration: none;" class="text-white" th:href="@{/admin/edit(id=${prov.id})}">Edit</a></button>
+                            <button class="btn btn-danger"><a style="text-decoration: none;" class="text-white" th:href="@{/admin/delete(id=${prov.id})}">Delete</a></button>
                         </td>
                       </tr>
                   </tbody>

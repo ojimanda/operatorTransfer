@@ -35,10 +35,13 @@ public class auth {
         httpSecurity.authorizeHttpRequests()
                 .requestMatchers("/").permitAll();
         httpSecurity.authorizeHttpRequests()
-                .requestMatchers("/customer")
+                .requestMatchers("/admin/**")
+                .hasAnyAuthority("admin");
+        httpSecurity.authorizeHttpRequests()
+                .requestMatchers("/customer/**")
                 .hasAnyAuthority("admin", "customer");
         httpSecurity.authorizeHttpRequests()
-                .requestMatchers("/operator")
+                .requestMatchers("/operator/**")
                 .hasAnyAuthority("admin", "operator");
         httpSecurity.authorizeHttpRequests().anyRequest().authenticated().and().formLogin().loginPage("/login")
                 .permitAll().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));

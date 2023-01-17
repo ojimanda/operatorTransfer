@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import id.yozi.operatortransfer.entity.Provider;
 import id.yozi.operatortransfer.repository.ProviderRepository;
 
+@Service
 public class ProviderServiceImpl implements ProviderService {
 
     @Autowired
@@ -28,9 +30,13 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public Provider addProvider(Provider provider) {
         // TODO Auto-generated method stub
-        Integer init = 100;
-        Integer code = (int) (init + provider.getId());
-        provider.setKode(code.toString());
+        Integer code;
+        if (providerRepository.findAll().size() == 0) {
+            code = 100;
+        } else {
+            code = providerRepository.getMaxKode() + 1;
+        }
+        provider.setKode(code);
         providerRepository.save(provider);
         return provider;
     }
@@ -47,6 +53,12 @@ public class ProviderServiceImpl implements ProviderService {
     public void deleteProvider(Long id) {
         // TODO Auto-generated method stub
         providerRepository.deleteById(id);
+    }
+
+    @Override
+    public Provider getProviderById(Long id) {
+        // TODO Auto-generated method stub
+        return providerRepository.findById(id).orElse(null);
     }
 
 }

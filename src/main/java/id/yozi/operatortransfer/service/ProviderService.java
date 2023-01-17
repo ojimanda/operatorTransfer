@@ -13,6 +13,8 @@ public interface ProviderService {
 
     public Provider getProviderByName(String name);
 
+    public Provider getProviderById(Long id);
+
     public Provider addProvider(Provider provider);
 
     public Provider updateProvider(Long id, Provider provider);

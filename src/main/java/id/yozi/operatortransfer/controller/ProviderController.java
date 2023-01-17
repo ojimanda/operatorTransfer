@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import id.yozi.operatortransfer.entity.Provider;
 import id.yozi.operatortransfer.service.ProviderService;
@@ -30,6 +31,25 @@ public class ProviderController {
         return "admin/home";
     }
 
+    @GetMapping("/edit")
+    public String editProvider(Model model, @RequestParam("id") Long id) {
+        List<Provider> providers = providerService.getAllProvider();
+        model.addAttribute("providers", providers);
+        Provider getProvider = providerService.getProviderById(id);
+        model.addAttribute("provider", getProvider);
+
+        return "admin/home";
+    }
+
+    @PostMapping("/edit")
+    public String updateProvider(Model model, @RequestParam("id") Long id,
+            @ModelAttribute("provider") Provider provider) {
+        List<Provider> providers = providerService.getAllProvider();
+        model.addAttribute("providers", providers);
+        providerService.updateProvider(id, provider);
+        return "redirect:/admin";
+    }
+
     @PostMapping
     public String addProvider(@ModelAttribute("provider") Provider provider, Model model) {
 
@@ -37,6 +57,15 @@ public class ProviderController {
         List<Provider> providers = providerService.getAllProvider();
         model.addAttribute("providers", providers);
 
-        return "redirect:/";
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/delete")
+    public String deleteProvider(@RequestParam("id") Long id, Model model) {
+        providerService.deleteProvider(id);
+        List<Provider> providers = providerService.getAllProvider();
+        model.addAttribute("providers", providers);
+        model.addAttribute("provider", new Provider());
+        return "redirect:/admin";
     }
 }
