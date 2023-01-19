@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import id.yozi.operatortransfer.entity.Nasabah;
+import id.yozi.operatortransfer.entity.Provider;
 import id.yozi.operatortransfer.entity.Rekening;
 import jakarta.transaction.Transactional;
 
@@ -27,5 +28,11 @@ public interface RekeningRepository extends JpaRepository<Rekening, Long> {
     @Transactional
     @Query(value = "DELETE FROM rekening WHERE id = ?1", nativeQuery = true)
     void deleteById(Long id);
+
+    // @Modifying
+    // @Transactional
+    // @Query(value = "UPDATE nasabah n set n.rekening = ?2 where u.lastname = ?1",
+    // nativeQuery = true)
+    // void tambahRekening(Long id, List<Rekening> rekening);
 
 }

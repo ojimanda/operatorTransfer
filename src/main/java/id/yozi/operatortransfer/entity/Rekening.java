@@ -33,7 +33,7 @@ public class Rekening {
 
     private double saldo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "nasabah_id", referencedColumnName = "id")
     private Nasabah nasabah;
 

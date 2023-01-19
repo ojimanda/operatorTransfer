@@ -36,10 +36,10 @@ public class RekeningController {
     public String rekeningNasabah(Model model, @RequestParam("id") Long id) {
         Nasabah nasabah = nasabahService.getNasabah(id);
         // List<Rekening> rekening = nasabah.getRekening();
-        List<Rekening> rekening = rekeningService.getRekeningNasabah(id);
+        List<Rekening> rekening = nasabah.getRekening();
         List<Provider> providers = providerService.getAllProvider();
         // for (Rekening rekening2 : rekening) {
-        //     System.out.println(rekening2.getNoRekening());
+        // System.out.println(rekening2.getNoRekening());
         // }
         model.addAttribute("listProvider", providers);
         model.addAttribute("rekening", new Rekening());

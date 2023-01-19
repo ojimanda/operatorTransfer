@@ -1,5 +1,6 @@
 package id.yozi.operatortransfer.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,23 +46,21 @@ public class RekeningService {
 
     public Rekening addRekening(Long id, Rekening rekening) {
         Nasabah nasabah = nasabahRepository.findById(id).orElse(null);
-        // List<Rekening> getRekening = nasabah.getRekening();
-        // for (Rekening rekening2 : getRekening) {
-        // System.out.println("1 " + rekening2.getNoRekening());
-
-        // }
-
+        List<Rekening> getRekening = nasabah.getRekening();
+        System.out.println(getRekening.size());
+        List<Rekening> newRekening = new ArrayList<>();
+        for (Rekening rekening2 : getRekening) {
+            newRekening.add(rekening2);
+            System.out.println("1 " + rekening2.getNoRekening());
+        }
         rekening.setNasabah(nasabah);
         rekening.setNoRekening("" + rekening.getProvider().getKode() + randomWithRange(1000000, 9999999));
-        nasabah.getRekening().add(rekening);
-        this.nasabahRepository.save(nasabah);
-        // getRekening.add(rekening);
-        // for (Rekening rekening2 : getRekening) {
-        // System.out.println("2 " + rekening2.getNoRekening());
-        // }
-        // nasabah.setRekening(getRekening);
-        // nasabahRepository.saveAndFlush(nasabah);
-        // rekeningRepository.save(rekening);
+        newRekening.add(rekening);
+        for (Rekening rekening2 : newRekening) {
+            System.out.println("2 " + rekening2.getNoRekening());
+        }
+        nasabah.setRekening(newRekening);
+        nasabahRepository.saveAndFlush(nasabah);
 
         return rekening;
     }

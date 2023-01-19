@@ -1,5 +1,7 @@
 package id.yozi.operatortransfer.config;
 
+import id.yozi.operatortransfer.entity.Rekening;
+import id.yozi.operatortransfer.repository.RekeningRepository;
 import id.yozi.operatortransfer.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +18,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class auth {
         @Autowired
         UserDetailServiceImpl userDetailService;
+
+        @Autowired
+        RekeningRepository rekeningRepository;
 
         @Bean
         public BCryptPasswordEncoder bCryptPasswordEncoder() {

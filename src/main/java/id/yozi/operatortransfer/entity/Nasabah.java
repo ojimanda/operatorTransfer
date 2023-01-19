@@ -35,7 +35,6 @@ public class Nasabah {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String fullName;
 
     @Column(unique = true)
@@ -46,11 +45,10 @@ public class Nasabah {
     @Column(unique = true)
     private String email;
 
-
     private String contact;
 
     @OneToMany(mappedBy = "nasabah", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    // @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Rekening> rekening;
 
 }

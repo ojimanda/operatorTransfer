@@ -2,6 +2,9 @@ package id.yozi.operatortransfer.entity;
 
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import id.yozi.operatortransfer.repository.RekeningRepository;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -43,4 +46,5 @@ public class Amount {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
+
 }
