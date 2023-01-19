@@ -3,15 +3,19 @@ package id.yozi.operatortransfer.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import id.yozi.operatortransfer.entity.Nasabah;
 import id.yozi.operatortransfer.entity.Rekening;
 import id.yozi.operatortransfer.repository.NasabahRepository;
+import id.yozi.operatortransfer.repository.ProviderRepository;
 import id.yozi.operatortransfer.repository.RekeningRepository;
 
 @Service
 public class RekeningService {
+
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     RekeningRepository rekeningRepository;
@@ -19,12 +23,20 @@ public class RekeningService {
     @Autowired
     NasabahRepository nasabahRepository;
 
+    @Autowired
+    ProviderRepository providerRepository;
+
     public List<Rekening> getAllRekening() {
         return rekeningRepository.findAll();
     }
 
     public List<Rekening> getRekeningNasabah(Long id) {
-        return nasabahRepository.findById(id).get().getRekening();
+        // return nasabahRepository.findById(id).get().getRekening();
+        return rekeningRepository.findByNasabah(nasabahRepository.findById(id));
+    }
+
+    public Rekening getRekeningByNoRek(String noRek) {
+        return rekeningRepository.findByNoRekening(noRek);
     }
 
     public Rekening getRekeningById(Long id) {
@@ -33,16 +45,43 @@ public class RekeningService {
 
     public Rekening addRekening(Long id, Rekening rekening) {
         Nasabah nasabah = nasabahRepository.findById(id).orElse(null);
-        List<Rekening> getRekening = nasabah.getRekening();
-        getRekening.add(rekening);
-        nasabah.setRekening(getRekening);
-        nasabahRepository.saveAndFlush(nasabah);
-        return rekeningRepository.save(rekening);
+        // List<Rekening> getRekening = nasabah.getRekening();
+        // for (Rekening rekening2 : getRekening) {
+        // System.out.println("1 " + rekening2.getNoRekening());
+
+        // }
+
+        rekening.setNasabah(nasabah);
+        rekening.setNoRekening("" + rekening.getProvider().getKode() + randomWithRange(1000000, 9999999));
+        nasabah.getRekening().add(rekening);
+        this.nasabahRepository.save(nasabah);
+        // getRekening.add(rekening);
+        // for (Rekening rekening2 : getRekening) {
+        // System.out.println("2 " + rekening2.getNoRekening());
+        // }
+        // nasabah.setRekening(getRekening);
+        // nasabahRepository.saveAndFlush(nasabah);
+        // rekeningRepository.save(rekening);
+
+        return rekening;
     }
 
-    public void deleteRekening(Long id) {
-        nasabahRepository.deleteRekeningById(id);
-        rekeningRepository.deleteById(id);
+    public void deleteRekening(Long idRek) {
+        // Nasabah nasabah = nasabahRepository.findById(id).orElse(null);
+        // List<Rekening> listNasabah = nasabah.getRekening();
+        // listNasabah.remove(rekeningRepository.findById(idRek).orElse(null));
+        // nasabah.setRekening(listNasabah);
+        // nasabahRepository.saveAndFlush(nasabah);
+
+        rekeningRepository.deleteById(idRek);
     }
 
+    // public void deleteRekeningByNasabah(Nasabah nasabah) {
+    // rekeningRepository.deleteByNasabah(nasabah);
+    // }
+
+    int randomWithRange(int min, int max) {
+        int range = (max - min) + 1;
+        return (int) (Math.random() * range) + min;
+    }
 }

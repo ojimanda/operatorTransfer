@@ -21,47 +21,26 @@
 
     <div class="container mt-5">
         <div class="w-100 d-flex flex-column align-items-center">
-            <form class="mb-3 d-flex flex-column" style="width: 40%;">
+            <form class="mb-3 d-flex flex-column" style="width: 40%;" method="post" th:action="@{/rekening(id=${nasabah.id})}" th:object="${rekening}">
                 <table class="table tablecs">
                     <tr style="border: white;">
                         <td>
-                            Nama
+                            Bank
                         </td>
                         <td>
-                            <input type="text" class="w-100 border border-1 rounded p-2"
-                                placeholder="Masukkan nama lengkap" required />
-                        </td>
-                    </tr>
-                    <tr style="border: white;">
-                        <td>No. Identitas</td>
-                        <td>
-                            <input type="number" class="w-100 border border-1 rounded p-2"
-                                placeholder="Masukkan nomor identitas" required />
-                        </td>
-                    </tr>
-                    <tr style="border: white;">
-                        <td>Tipe Identitas</td>
-                        <td>
-                            <select class="form-select w-100 border border-1 rounded p-2"
-                                aria-label="Default select example" required>
-                                <option selected></option>
-                                <option value="ktp">KTP</option>
-                                <option value="sim">SIM</option>
+                            <select th:field="*{provider}" class="form-select w-100 border border-1 rounded p-2">
+                                <th:block th:each="list : ${listProvider}">
+                                    <option th:value="${list.id}" th:text="${list.name}"></option>
+                                </th:block>
                             </select>
                         </td>
                     </tr>
                     <tr style="border: white;">
-                        <td>Email</td>
+                        <td>Saldo</td>
                         <td>
-                            <input type="email" class="w-100 border border-1 rounded p-2" placeholder="Masukkan email"
-                                required />
-                        </td>
-                    </tr>
-                    <tr style="border: white;">
-                        <td>Kontak</td>
-                        <td>
-                            <input type="text" class="w-100 border border-1 rounded p-2" placeholder="Masukkan kontak"
-                                required />
+                            <input th:field="*{saldo}" type="number" class="w-100 border border-1 rounded p-2"
+                                placeholder="Masukkan jumlah saldo" required />
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('saldo')}" th:errors="*{saldo}"></div>
                         </td>
                     </tr>
                     <tr style="border: white;">
@@ -78,28 +57,20 @@
                 <table class="text-center w-100">
                     <thead>
                         <th>Nama</th>
-                        <th>No. Identitas</th>
-                        <th>Tipe Identitas</th>
-                        <th>Email</th>
-                        <th>Kontak</th>
-                        <!-- <th>No. Rekening</th> -->
+                        <th>No. Rekening</th>
+                        <th>Bank</th>
+                        <th>Saldo</th>
                         <th>Action</th>
                     </thead>
                     <tbody>
-                        <tr th:each="nsbh : ${nasabahs}">
-                            <td th:text="${nsbh.fullName}"></td>
-                            <td th:text="${nsbh.noIdentity}"></td>
-                            <td th:text="${nsbh.tipeIdentity}"></td>
-                            <td th:text="${nsbh.email}"></td>
-                            <td th:text="${nsbh.contact}"></td>
-                            <!-- <td th:text="${nsbh.rekening}">No. Rekening</td> -->
+                        <tr th:each="list : ${listRekening}">
+                            <td th:text="${list.nasabah.fullName}"></td>
+                            <td th:text="${list.noRekening}"></td>
+                            <td th:text="${list.provider.name}"></td>
+                            <td th:text="${list.saldo}"></td>
                             <td class="d-flex justify-content-center mb-1">
-                                <button class="btn btn-primary"><a style="text-decoration: none;" class="text-white"
-                                        th:href="@{/customer/edit(id=${nsbh.id})}">Edit</a></button>
                                 <button class="btn btn-danger mx-3"><a style="text-decoration: none;" class="text-white"
-                                        th:href="@{/customer/delete(id=${nsbh.id})}">Delete</a></button>
-                                <button class="btn btn-info"><a style="text-decoration: none;" class="text-white"
-                                        th:href="@{/customer/rekening(id=${nsbh.id})}">Details</a></button>
+                                        th:href="@{/rekening/delete(idrek=${list.id})}">Delete</a></button>
                             </td>
                         </tr>
                     </tbody>

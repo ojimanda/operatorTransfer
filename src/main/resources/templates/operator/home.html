@@ -15,19 +15,43 @@
         </div>
       </nav>
 
+      <!-- modal -->
+
+      
+
+      <!-- end of modal -->
+
       <div class="container mt-5">
         <div class="w-100 d-flex flex-column align-items-center">
-            <div class="mb-3 d-flex flex-column w-50">
+            <form class="mb-3 d-flex flex-column w-50" method="post" th:action="@{/operator}">
                 <table class="table">
                     <tr style="border: white;">
                         <td>
                             No. Rekening Pengirim
                         </td>
                         <td>
-                            <input type="number" class="w-100 border border-1 rounded p-2" placeholder="Masukkan nomor rekening" required />
+                            <input id="inputPengirim" th:field="${rekPengirim.noRekening}" type="text" class="w-100 border border-1 rounded p-2" placeholder="Masukkan nomor rekening" required />
                         </td>
                         <td>
-                            <button class="btn btn-outline-primary"><a style="text-decoration: none;" href="">Check</a></button>
+                            <button data-bs-toggle="modal" data-bs-target="#checkPengirim" class="btn btn-outline-primary" id="btnPengirimCek">Check</button>
+
+                            <div class="modal fade" id="checkPengirim" tabindex="-1" aria-labelledby="checkPengirimLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="checkPengirimLabel">Modal title</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div id="rekPengirim" th:text="${amount.pengirim}"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         </td>
                     </tr>
                     <tr style="border: white;">
@@ -35,7 +59,7 @@
                             No. Rekening Penerima
                         </td>
                         <td>
-                            <input type="number" class="w-100 border border-1 rounded p-2" placeholder="Masukkan nomor rekening" required />
+                            <input th:field="${rekPenerima.noRekening}" type="text" class="w-100 border border-1 rounded p-2" placeholder="Masukkan nomor rekening" required />
                         </td>
                         <td>
                             <button class="btn btn-outline-primary"><a style="text-decoration: none;" href="">Check</a></button>
@@ -46,7 +70,7 @@
                             Jumlah Transfer
                         </td>
                         <td>
-                            <input type="number" class="w-100 border border-1 rounded p-2" placeholder="Masukkan jumlah transfer" required />
+                            <input th:field="${amount.jumlah}" type="number" class="w-100 border border-1 rounded p-2" placeholder="Masukkan jumlah transfer" required />
                         </td>
                         <td></td>
                     </tr>
@@ -60,7 +84,7 @@
                         <td></td>
                     </tr>
                 </table>
-            </div>
+            </form>
 
             <div style="overflow-y: scroll; overflow-x: auto;" class="w-100 mt-5">
                 <table class="text-center w-100">
@@ -73,13 +97,13 @@
                     <th>Fee</th>
                   </thead>
                   <tbody>
-                      <tr>
-                        <td>Rek. Pengirim</td>
-                        <td>Rek. Penerima</td>
-                        <td>Jumlah Transfer</td>
-                        <td>Bank Asal</td>
-                        <td>Bank Tujuan</td>
-                        <td>Fee</td>
+                      <tr th:each="am : ${listAmount}">
+                        <td th:text="${am.pengirim.noRekening}"></td>
+                        <td th:text="${am.penerima.noRekening}"></td>
+                        <td th:text="${am.jumlah}"></td>
+                        <td th:text="${am.provider.name}"></td>
+                        <td th:text="${am.bankTujuan}"></td>
+                        <td th:text="${am.fee}"></td>
                       </tr>
                   </tbody>
                 </table>
@@ -89,5 +113,22 @@
 
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+      <script>
+
+        const pengirim = document.getElementById('checkPengirim');
+        const rekPengirim = document.getElementById('rekPengirim');
+        const inpPengirim = document.getElementById('inputPengirim');
+        const btn = document.getElementById('btnPengirimCek');
+        btn.addEventListener('click', function () { 
+            const getRek = inpPengirim.value;
+            rekPengirim.textContent = getRek;
+         })
+
+         const showdata = () => {
+          alert(inpPengirim.value)
+         }
+
+      </script>
 </body>
 </html>

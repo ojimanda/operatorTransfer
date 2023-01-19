@@ -34,12 +34,4 @@ public class UserController {
     public String home() {
         return "home";
     }
-
-    
-
-
-    @GetMapping("/operator")
-    public String homeOperator() {
-        return "operator/home";
-    }
 }

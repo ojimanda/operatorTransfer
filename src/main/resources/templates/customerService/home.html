@@ -25,34 +25,39 @@
                         </td>
                         <td>
                             <input type="text" th:field="*{fullName}" class="w-100 border border-1 rounded p-2" placeholder="Masukkan nama lengkap" required />
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
                         </td>
                     </tr>
                     <tr style="border: white;">
                         <td>No. Identitas</td>
                         <td>
                             <input type="number" th:field="*{noIdentity}" class="w-100 border border-1 rounded p-2" placeholder="Masukkan nomor identitas" required />
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('noIdentity')}" th:errors="*{noIdentity}"></div>
                         </td>
                     </tr>
                     <tr style="border: white;">
                         <td>Tipe Identitas</td>
                         <td>
                             <select th:field="*{tipeIdentity}" class="form-select w-100 border border-1 rounded p-2" aria-label="Default select example" required>
-                                <option th:value="*{0}"></option>
-                                <option th:value="${KTP}">KTP</option>
-                                <option th:value="${SIM}">SIM</option>
+                                <option th:value="0"></option>
+                                <option th:value="ktp">KTP</option>
+                                <option th:value="sim">SIM</option>
                               </select>
+                              <div class="alert alert-warning" th:if="${#fields.hasErrors('tipeIdentity')}" th:errors="*{tipeIdentity}"></div>
                         </td>
                     </tr>
                     <tr style="border: white;">
                         <td>Email</td>
                         <td>
                             <input th:field="*{email}" type="email" class="w-100 border border-1 rounded p-2" placeholder="Masukkan email" required />
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                         </td>
                     </tr>
                     <tr style="border: white;">
                         <td>Kontak</td>
                         <td>
                             <input th:field="*{contact}" type="text" class="w-100 border border-1 rounded p-2" placeholder="Masukkan kontak" required />
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}"></div>
                         </td>
                     </tr>
                     <tr style="border: white;">
@@ -87,10 +92,10 @@
                     <tr style="border: white;">
                         <td>Tipe Identitas</td>
                         <td>
-                            <select th:field="*{tipeIdentity}" class="form-select w-100 border border-1 rounded p-2"
-                                aria-label="identity">
-                                <option th:value="${KTP}">KTP</option>
-                                <option th:value="${SIM}">SIM</option>
+                            <select th:field="*{tipeIdentity}" class="form-select w-100 border border-1 rounded p-2">
+                                <th:block th:each="tipe : ${tipeIdentitas}">
+                                    <option th:value="${tipe}" th:text="${tipe}"></option>
+                                </th:block>
                             </select>
                         </td>
                     </tr>
@@ -127,7 +132,6 @@
                     <th>Tipe Identitas</th>
                     <th>Email</th>
                     <th>Kontak</th>
-                    <!-- <th>No. Rekening</th> -->
                     <th>Action</th>
                   </thead>
                   <tbody>
@@ -137,11 +141,10 @@
                         <td th:text="${nsbh.tipeIdentity}"></td>
                         <td th:text="${nsbh.email}"></td>
                         <td th:text="${nsbh.contact}"></td>
-                        <!-- <td th:text="${nsbh.rekening}">No. Rekening</td> -->
                         <td class="d-flex justify-content-center mb-1">
                             <button class="btn btn-primary"><a style="text-decoration: none;" class="text-white" th:href="@{/customer/edit(id=${nsbh.id})}">Edit</a></button>
                             <button class="btn btn-danger mx-3"><a style="text-decoration: none;" class="text-white" th:href="@{/customer/delete(id=${nsbh.id})}">Delete</a></button>
-                            <button class="btn btn-info"><a style="text-decoration: none;" class="text-white" th:href="@{/customer/rekening(id=${nsbh.id})}">Details</a></button>
+                            <button class="btn btn-info"><a style="text-decoration: none;" class="text-white" th:href="@{/rekening(id=${nsbh.id})}">Details</a></button>
                         </td>
                       </tr>
                   </tbody>

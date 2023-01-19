@@ -87,64 +87,71 @@ public class InitDefaultUserAuth {
         userRepository.save(userOperator);
 
         // provider
-        Provider provider1 = new Provider();
-        provider1.setName("bni");
-        provider1.setKode(101);
-        providerRepository.save(provider1);
-        Provider provider2 = new Provider();
-        provider2.setName("bri");
-        provider2.setKode(102);
-        providerRepository.save(provider2);
-        Provider provider3 = new Provider();
-        provider3.setName("bca");
-        provider3.setKode(103);
-        providerRepository.save(provider3);
+        // Provider provider1 = new Provider();
+        // provider1.setName("bni");
+        // provider1.setKode(101);
+        // providerRepository.save(provider1);
+        // Provider provider2 = new Provider();
+        // provider2.setName("bri");
+        // provider2.setKode(102);
+        // providerRepository.save(provider2);
+        // Provider provider3 = new Provider();
+        // provider3.setName("bca");
+        // provider3.setKode(103);
+        // providerRepository.save(provider3);
 
-        // nasabah
-        Nasabah nasabah1 = new Nasabah();
-        nasabah1.setFullName("oji");
-        nasabah1.setNoIdentity(123456);
-        nasabah1.setTipeIdentity("ktp");
-        nasabah1.setEmail("oji@gmail.com");
-        nasabah1.setContact("123123");
-        nasabahRepository.save(nasabah1);
+        // // nasabah
+        // Nasabah nasabah1 = new Nasabah();
+        // nasabah1.setFullName("oji");
+        // nasabah1.setNoIdentity(123456);
+        // nasabah1.setTipeIdentity("ktp");
+        // nasabah1.setEmail("oji@gmail.com");
+        // nasabah1.setContact("123123");
+        // nasabahRepository.save(nasabah1);
 
-        Nasabah nasabah2 = new Nasabah();
-        nasabah2.setFullName("budi");
-        nasabah2.setNoIdentity(123457);
-        nasabah2.setTipeIdentity("ktp");
-        nasabah2.setEmail("budi@gmail.com");
-        nasabah2.setContact("123123");
-        nasabahRepository.save(nasabah2);
+        // Nasabah nasabah2 = new Nasabah();
+        // nasabah2.setFullName("budi");
+        // nasabah2.setNoIdentity(123457);
+        // nasabah2.setTipeIdentity("ktp");
+        // nasabah2.setEmail("budi@gmail.com");
+        // nasabah2.setContact("123123");
+        // nasabahRepository.save(nasabah2);
 
-        Nasabah nasabah3 = new Nasabah();
-        nasabah3.setFullName("siti");
-        nasabah3.setNoIdentity(123458);
-        nasabah3.setTipeIdentity("ktp");
-        nasabah3.setEmail("siti@gmail.com");
-        nasabah3.setContact("123123");
-        nasabahRepository.save(nasabah3);
+        // Nasabah nasabah3 = new Nasabah();
+        // nasabah3.setFullName("siti");
+        // nasabah3.setNoIdentity(123458);
+        // nasabah3.setTipeIdentity("ktp");
+        // nasabah3.setEmail("siti@gmail.com");
+        // nasabah3.setContact("123123");
+        // nasabahRepository.save(nasabah3);
 
         // rekening
-        Rekening rekening1 = new Rekening();
-        rekening1.setProvider(provider1);
-        rekening1.setNasabah(nasabah1);
-        rekening1.setNoRekening("43543");
-        rekening1.setSaldo(200000);
-        rekeningRepository.save(rekening1);
+        // Rekening rekening1 = new Rekening();
+        // rekening1.setProvider(provider1);
+        // rekening1.setNasabah(nasabah1);
+        // rekening1.setNoRekening("11111");
+        // rekening1.setSaldo(200000);
+        // rekeningRepository.save(rekening1);
 
-        Rekening rekening2 = new Rekening();
-        rekening2.setProvider(provider2);
-        rekening2.setNasabah(nasabah2);
-        rekening2.setNoRekening("7878787");
-        rekening2.setSaldo(200000);
-        rekeningRepository.save(rekening2);
+        // Rekening rekening2 = new Rekening();
+        // rekening2.setProvider(provider2);
+        // rekening2.setNasabah(nasabah2);
+        // rekening2.setNoRekening("22222");
+        // rekening2.setSaldo(200000);
+        // rekeningRepository.save(rekening2);
 
-        Rekening rekening3 = new Rekening();
-        rekening3.setProvider(provider3);
-        rekening3.setNasabah(nasabah3);
-        rekening3.setNoRekening("12123244");
-        rekening3.setSaldo(200000);
-        rekeningRepository.save(rekening3);
+        // Rekening rekening3 = new Rekening();
+        // rekening3.setProvider(provider3);
+        // rekening3.setNasabah(nasabah3);
+        // rekening3.setNoRekening("33333");
+        // rekening3.setSaldo(200000);
+        // rekeningRepository.save(rekening3);
+
+        // Rekening rekening4 = new Rekening();
+        // rekening4.setProvider(provider3);
+        // rekening4.setNasabah(nasabah1);
+        // rekening4.setNoRekening("44444");
+        // rekening4.setSaldo(200000);
+        // rekeningRepository.save(rekening4);
     }
 }

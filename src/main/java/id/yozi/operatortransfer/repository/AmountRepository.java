@@ -3,10 +3,9 @@ package id.yozi.operatortransfer.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import id.yozi.operatortransfer.entity.Nasabah;
-import id.yozi.operatortransfer.entity.Rekening;
+import id.yozi.operatortransfer.entity.Amount;
 
 @Repository
-public interface NasabahRepository extends JpaRepository<Nasabah, Long> {
+public interface AmountRepository extends JpaRepository<Amount, Long> {
 
 }

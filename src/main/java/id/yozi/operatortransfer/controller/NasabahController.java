@@ -1,5 +1,6 @@
 package id.yozi.operatortransfer.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import id.yozi.operatortransfer.entity.Nasabah;
 import id.yozi.operatortransfer.entity.Rekening;
 import id.yozi.operatortransfer.service.NasabahService;
 import id.yozi.operatortransfer.service.RekeningService;
+import jakarta.transaction.Transactional;
 
 @Controller
 @RequestMapping("/customer")
@@ -29,6 +31,10 @@ public class NasabahController {
     @GetMapping
     public String homeCustomer(Model model) {
         List<Nasabah> nasabahs = nasabahService.getAllNasabah();
+        List<String> tipeIdentity = new ArrayList<>();
+        tipeIdentity.add("KTP");
+        tipeIdentity.add("SIM");
+        model.addAttribute("tipeIdentitas", tipeIdentity);
         model.addAttribute("nasabah", new Nasabah());
         model.addAttribute("nasabahs", nasabahs);
         return "customerService/home";
@@ -37,6 +43,10 @@ public class NasabahController {
     @GetMapping("/edit")
     public String editNasabah(Model model, @RequestParam("id") Long id) {
         List<Nasabah> nasabahs = nasabahService.getAllNasabah();
+        List<String> tipeIdentity = new ArrayList<>();
+        tipeIdentity.add("KTP");
+        tipeIdentity.add("SIM");
+        model.addAttribute("tipeIdentitas", tipeIdentity);
         Nasabah nasabah = nasabahService.getNasabah(id);
         model.addAttribute("nasabah", nasabah);
         model.addAttribute("nasabahs", nasabahs);
@@ -47,22 +57,22 @@ public class NasabahController {
     public String updateNasabah(Model model, @RequestParam("id") Long id, @ModelAttribute("nasabah") Nasabah nasabah) {
         nasabahService.updateNasabah(id, nasabah);
         List<Nasabah> nasabahs = nasabahService.getAllNasabah();
+        List<String> tipeIdentity = new ArrayList<>();
+        tipeIdentity.add("KTP");
+        tipeIdentity.add("SIM");
+        model.addAttribute("tipeIdentitas", tipeIdentity);
         model.addAttribute("nasabah", new Nasabah());
         model.addAttribute("nasabahs", nasabahs);
         return "redirect:/customer";
     }
 
-    @GetMapping("/detail")
-    public String rekeningNasabah(Model model, @RequestParam("id") Long id) {
-        Nasabah nasabah = nasabahService.getNasabah(id);
-        List<Rekening> rekening = nasabah.getRekening();
-        model.addAttribute("nasabahs", rekening);
-        return "customerService/rekening";
-    }
-
     @PostMapping
     public String addNasabah(Model model, @ModelAttribute("nasabah") Nasabah nasabah) {
         List<Nasabah> nasabahs = nasabahService.getAllNasabah();
+        List<String> tipeIdentity = new ArrayList<>();
+        tipeIdentity.add("KTP");
+        tipeIdentity.add("SIM");
+        model.addAttribute("tipeIdentitas", tipeIdentity);
         model.addAttribute("nasabah", new Nasabah());
         model.addAttribute("nasabahs", nasabahs);
         nasabahService.addNasabah(nasabah);
@@ -71,10 +81,15 @@ public class NasabahController {
     }
 
     @GetMapping("/delete")
+    @Transactional
     public String deleteNasabah(Model model, @RequestParam("id") Long id) {
         List<Nasabah> nasabahs = nasabahService.getAllNasabah();
         model.addAttribute("nasabah", new Nasabah());
         model.addAttribute("nasabahs", nasabahs);
+        List<String> tipeIdentity = new ArrayList<>();
+        tipeIdentity.add("KTP");
+        tipeIdentity.add("SIM");
+        model.addAttribute("tipeIdentitas", tipeIdentity);
         nasabahService.deleteNasabah(id);
         return "redirect:/customer";
     }

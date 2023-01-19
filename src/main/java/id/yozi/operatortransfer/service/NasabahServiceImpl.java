@@ -10,6 +10,7 @@ import id.yozi.operatortransfer.entity.Rekening;
 import id.yozi.operatortransfer.repository.NasabahRepository;
 import id.yozi.operatortransfer.repository.ProviderRepository;
 import id.yozi.operatortransfer.repository.RekeningRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class NasabahServiceImpl implements NasabahService {
@@ -52,10 +53,8 @@ public class NasabahServiceImpl implements NasabahService {
 
     @Override
     public void deleteNasabah(Long id) {
+
         // TODO Auto-generated method stub
-        // nasabahRepository.deleteById(id);
-        // rekeningRepository.deleteByNasabah(nasabahRepository.findById(id).orElse(null));
-        Nasabah nasabah = nasabahRepository.findById(id).orElse(null);
         nasabahRepository.deleteById(id);
     }
 
