@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -42,16 +44,27 @@ public class OperatorController {
     @GetMapping
     public String homeOperator(Model model) {
 
-        utils utils = new utils();
-
         List<Rekening> rekenings = rekeningService.getAllRekening();
+        JSONArray parentList = new JSONArray();
+        try {
+            for (Rekening rek : rekenings) {
+                JSONObject childList = new JSONObject();
+                childList.put("noRekening", rek.getNoRekening());
+                childList.put("name", rek.getNasabah().getFullName());
+                childList.put("provider", rek.getProvider().getName());
+                childList.put("saldo", "Rp. " + rek.getSaldo());
+                parentList.put(childList);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         List<Amount> allAmount = amountRepository.findAll();
         model.addAttribute("amount", new Amount());
         model.addAttribute("listAmount", allAmount);
         model.addAttribute("listRekening", rekenings);
+        model.addAttribute("detailRekening", parentList);
         model.addAttribute("rekPengirim", new Rekening());
         model.addAttribute("rekPenerima", new Rekening());
-        model.addAttribute("utils", utils);
         return "operator/home";
     }
 

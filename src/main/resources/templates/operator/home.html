@@ -25,11 +25,28 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              ...
+                <h2>Detail Nasabah</h2>
+                <table class="w-100">
+                    <tr>
+                        <td>Nama</td>
+                        <td id="nama"></td>
+                    </tr>
+                    <tr>
+                        <td>No Rekening</td>
+                        <td id="rekening"></td>
+                    </tr>
+                    <tr>
+                        <td>Nama</td>
+                        <td id="provider"></td>
+                    </tr>
+                    <tr>
+                        <td>Saldo</td>
+                        <td id="saldo"></td>
+                    </tr>
+                </table>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
@@ -47,9 +64,8 @@
                             <input id="inputPengirim" th:field="${rekPengirim.noRekening}" type="text" class="w-100 border border-1 rounded p-2" placeholder="Masukkan nomor rekening" required />
                         </td>
                         <td>
-                            <a class="btn btn-outline-primary" id="btnCekPengirim">Check</a>
-                            <a class="btn btn-primary" id="cekPengirim" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                              Launch demo modal
+                            <a class="btn btn-outline-primary" id="cekPengirim" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              Check
                             </a>
                         </td>
                     </tr>
@@ -61,7 +77,9 @@
                             <input th:field="${rekPenerima.noRekening}" id="inputPenerima" type="text" class="w-100 border border-1 rounded p-2" placeholder="Masukkan nomor rekening" required />
                         </td>
                         <td>
-                          <a class="btn btn-outline-primary" id="btnCekPenerima">Check</a>
+                          <a class="btn btn-outline-primary" id="cekPenerima" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Check
+                          </a>
                         </td>
                     </tr>
                     <tr style="border: white;">
@@ -113,7 +131,7 @@
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
-      <script th:inline="javascript">
+      <!-- <script th:inline="javascript">
         /*<![CDATA[*/
         const pengirim = document.getElementById('checkPengirim');
         const penerima = document.getElementById('checkPenerima')
@@ -145,7 +163,7 @@
 /*]]>*/
 
 
-      </script>
+      </script> -->
       
 </body>
 <script>
@@ -178,6 +196,41 @@
   //     })
   //   }
   //  })
+
+    const btnPengirim = document.getElementById('cekPengirim');
+    const btnPenerima = document.getElementById('cekPenerima');
+    const list = '[[${detailRekening}]]';
+    const fieldRekPengirim = document.getElementById("inputPengirim");
+    const fieldRekPenerima = document.getElementById("inputPenerima");
+    const getFieldNama = document.getElementById("nama");
+    const getFieldRekening = document.getElementById("rekening");
+    const getFieldProvider = document.getElementById("provider");
+    const getFieldSaldo = document.getElementById("saldo");
+    btnPengirim.addEventListener('click', function() {
+      const datas = JSON.parse(list.replace(/&quot;/g,'"'));
+      const getRek = fieldRekPengirim.value;
+      for(data of datas) {
+        if(data["noRekening"] == getRek) {
+          getFieldNama.innerHTML = data["name"];
+          getFieldRekening.innerHTML = data["noRekening"];
+          getFieldProvider.innerHTML = data["provider"];
+          getFieldSaldo.innerHTML = data["saldo"];
+        }
+      }
+    });
+
+    btnPenerima.addEventListener('click', function() {
+      const datas = JSON.parse(list.replace(/&quot;/g,'"'));
+      const getRek = fieldRekPenerima.value;
+      for(data of datas) {
+        if(data["noRekening"] == getRek) {
+          getFieldNama.innerHTML = data["name"];
+          getFieldRekening.innerHTML = data["noRekening"];
+          getFieldProvider.innerHTML = data["provider"];
+          getFieldSaldo.innerHTML = data["saldo"];
+        }
+      }
+    });
 
 </script>
 </html>
