@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import id.yozi.operatortransfer.entity.Nasabah;
-import id.yozi.operatortransfer.entity.Provider;
 import id.yozi.operatortransfer.entity.Rekening;
 import jakarta.transaction.Transactional;
 

@@ -1,9 +1,11 @@
 package id.yozi.operatortransfer.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import id.yozi.operatortransfer.utils;
 import id.yozi.operatortransfer.entity.Amount;
@@ -92,5 +95,28 @@ public class OperatorController {
         model.addAttribute("rekPengirim", new Rekening());
         model.addAttribute("rekPenerima", new Rekening());
         return "operator/home";
+    }
+
+    @PostMapping("/rekening/{norek}")
+    public @ResponseBody List<String> detailRekening(@PathVariable("norek") String noRek, Model model) {
+        Rekening rekening = rekeningRepository.findByNoRekening(noRek);
+        List<String> list = new ArrayList<>();
+        if (rekening == null) {
+            return list;
+        }
+
+        list.add(0, rekening.getNoRekening());
+        list.add(1, rekening.getProvider().getName());
+        list.add(2, rekening.getNasabah().getFullName());
+        model.addAttribute(list);
+
+        List<Rekening> rekenings = rekeningService.getAllRekening();
+        List<Amount> allAmount = amountRepository.findAll();
+        model.addAttribute("amount", new Amount());
+        model.addAttribute("listAmount", allAmount);
+        model.addAttribute("listRekening", rekenings);
+        model.addAttribute("rekPengirim", new Rekening());
+        model.addAttribute("rekPenerima", new Rekening());
+        return list;
     }
 }

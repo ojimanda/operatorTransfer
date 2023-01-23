@@ -1,18 +1,9 @@
 package id.yozi.operatortransfer.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import id.yozi.operatortransfer.entity.Nasabah;
-import id.yozi.operatortransfer.entity.Provider;
-import id.yozi.operatortransfer.entity.Rekening;
-import id.yozi.operatortransfer.entity.Role;
-import id.yozi.operatortransfer.entity.User;
-import id.yozi.operatortransfer.repository.NasabahRepository;
+ import id.yozi.operatortransfer.repository.NasabahRepository;
 import id.yozi.operatortransfer.repository.ProviderRepository;
 import id.yozi.operatortransfer.repository.RekeningRepository;
 import id.yozi.operatortransfer.repository.RoleRepository;

@@ -1,6 +1,5 @@
 package id.yozi.operatortransfer.config;
 
-import id.yozi.operatortransfer.entity.Rekening;
 import id.yozi.operatortransfer.repository.RekeningRepository;
 import id.yozi.operatortransfer.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +43,10 @@ public class auth {
                                 .hasAnyAuthority("admin");
                 httpSecurity.authorizeHttpRequests()
                                 .requestMatchers("/customer/**", "/rekening/**")
-                                .hasAnyAuthority("admin", "customer");
+                                .hasAnyAuthority("customer");
                 httpSecurity.authorizeHttpRequests()
                                 .requestMatchers("/operator/**")
-                                .hasAnyAuthority("admin", "operator");
+                                .hasAnyAuthority("operator");
                 httpSecurity.authorizeHttpRequests().anyRequest().authenticated().and().formLogin().loginPage("/login")
                                 .permitAll().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
                 // httpSecurity.authorizeHttpRequests().and().formLogin();

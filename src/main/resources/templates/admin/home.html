@@ -19,13 +19,13 @@
         <div class="w-100 d-flex flex-column align-items-center">
             <form th:if="${provider.name == null}" class="mb-3 d-flex flex-column w-50" method="post" th:action="@{/admin}" th:object="${provider}">
                 <label for="bankProvider" class="h4 form-label">Bank Provider</label>
-                <input type="text" class="form-control" th:field="*{name}" id="bankProvider" placeholder="Bank Maybank Indonesia">
+                <input type="text" class="form-control" th:field="*{name}" id="bankProvider" placeholder="Bank Maybank Indonesia" required>
                 <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                 <input type="submit" value="Save" class="btn btn-success my-3 align-self-center w-25" />
             </form>
-            <form th:unless="${provider.name == null}" class="mb-3 d-flex flex-column w-50" method="post" th:action="@{/admin/edit(id=${provider.id})}" th:object="${provider}">
+            <form th:unless="${provider.name == null}" class="mb-3 d-flex flex-column w-50" method="post" th:action="@{/admin/edit(id=${provider.id})}" th:object="${provider}"> 
                 <label for="bankProvider" class="h4 form-label">Bank Provider</label>
-                <input type="text" class="form-control" th:field="*{name}" id="bankProvider" placeholder="Bank Maybank Indonesia">
+                <input type="text" class="form-control" th:field="*{name}" id="bankProvider" placeholder="Bank Maybank Indonesia" required>
                 <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                 <input type="submit" value="Update" class="btn btn-success my-3 align-self-center w-25" />
             </form>

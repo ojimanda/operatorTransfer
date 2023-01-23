@@ -4,22 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>Home Operator</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container text-center d-flex justify-content-between">
-          <a class="navbar-brand h1" href="/operator">OPERATOR</a>
+          <a class="navbar-brand h1" href="/">OPERATOR</a>
           <button class="btn btn-danger"><a style="text-decoration: none;" class="text-white" th:href="@{/logout}">Log Out</a></button>
         </div>
       </nav>
 
-      <!-- modal -->
-
-      
-
-      <!-- end of modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="container mt-5">
         <div class="w-100 d-flex flex-column align-items-center">
@@ -33,27 +47,10 @@
                             <input id="inputPengirim" th:field="${rekPengirim.noRekening}" type="text" class="w-100 border border-1 rounded p-2" placeholder="Masukkan nomor rekening" required />
                         </td>
                         <td>
-                          <!-- <th:block th:with="data=${'javascript:showDataPengirim()'}" th:each="rek : ${listRekening}"> -->
-                            <a class="btn btn-outline-primary" id="btnCek">Check</a>
-
-                            <!-- <div class="modal fade" id="checkPengirim" tabindex="-1" aria-labelledby="checkPengirimLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h1 class="modal-title fs-5" id="checkPengirimLabel">Modal title</h1>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <div id="rekPengirim"></div>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                      <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div> -->
-                          <!-- </th:block> -->
+                            <a class="btn btn-outline-primary" id="btnCekPengirim">Check</a>
+                            <a class="btn btn-primary" id="cekPengirim" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              Launch demo modal
+                            </a>
                         </td>
                     </tr>
                     <tr style="border: white;">
@@ -61,10 +58,10 @@
                             No. Rekening Penerima
                         </td>
                         <td>
-                            <input th:field="${rekPenerima.noRekening}" type="text" class="w-100 border border-1 rounded p-2" placeholder="Masukkan nomor rekening" required />
+                            <input th:field="${rekPenerima.noRekening}" id="inputPenerima" type="text" class="w-100 border border-1 rounded p-2" placeholder="Masukkan nomor rekening" required />
                         </td>
                         <td>
-                          <a class="btn btn-outline-primary" id="btnCek">Check</a>
+                          <a class="btn btn-outline-primary" id="btnCekPenerima">Check</a>
                         </td>
                     </tr>
                     <tr style="border: white;">
@@ -119,12 +116,29 @@
       <script th:inline="javascript">
         /*<![CDATA[*/
         const pengirim = document.getElementById('checkPengirim');
+        const penerima = document.getElementById('checkPenerima')
         const rekPengirim = document.getElementById('rekPengirim');
         const inpPengirim = document.getElementById('inputPengirim');
-        const btn = document.getElementById('btnCek');
+        const inpPenerima = document.getElementById('inputPenerima');
+        const btn = document.getElementById('btnCekPengirim');
+        const btn2 = document.getElementById('btnCekPenerima');
         btn.addEventListener('click', function () { 
           const getRek = inpPengirim.value;
-          window.location = '/operator/'+getRek;
+          console.log(getRek)
+          if(getRek == "") {
+            window.location = '/operator'
+          } else {
+            window.location = '/operator/'+getRek;
+          }
+
+         })
+        btn2.addEventListener('click', function () { 
+          const getRek = inpPenerima.value;
+          if(getRek == "") {
+            window.location = '/operator'
+          } else {
+            window.location = '/operator/'+getRek;
+          }
 
          })
 
@@ -132,5 +146,38 @@
 
 
       </script>
+      
 </body>
+<script>
+  // $('#pengirimModal').on('show.bs.modal', function (event) { 
+  //   const noRek = $('#inputPengirim').val();
+  //   const modal = $(this);
+  //   if(noRek == null) {
+  //     $('#rekPengirim').empty().append("No Rekening");
+  //     $('#pengirimModal').show()
+  //   } else {
+  //     $.ajax({
+  //       type: "POST",
+  //       url: '/operator/rekening/'+ noRek,
+  //       data: {'noRek': noRek},
+  //       success: function (list) { 
+  //         const rek = "";
+  //         const nama = "";
+
+  //         if(list != null) {
+  //           for(i in list) {
+  //             rek = list[0];
+  //             nama = list[2];
+  //           }
+  //           $('#rekPengirim').empty().append(rek);
+  //           $('#namaPengirim').empty().append(nama);
+  //           $('#pengirimModal').show()
+  //         }
+  //        }
+
+  //     })
+  //   }
+  //  })
+
+</script>
 </html>

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import id.yozi.operatortransfer.entity.Nasabah;
-import id.yozi.operatortransfer.entity.Rekening;
 import id.yozi.operatortransfer.service.NasabahService;
 import id.yozi.operatortransfer.service.RekeningService;
 import jakarta.transaction.Transactional;
